@@ -16,9 +16,9 @@ function plotData(x, y)
 
 figure; % open a new figure window
 
-
-
-
+plot(x, y, 'rx', 'MarkerSize', 10);
+xlabel('Population / 10^4');
+ylabel('Revenue / 10^4$')
 
 
 % ============================================================
