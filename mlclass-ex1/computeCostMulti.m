@@ -6,10 +6,8 @@ function J = computeCostMulti(X, y, theta)
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
-J = mean((X * theta - y) .^ 2) / 2
 
-
-
+J = computeCost(X, y, theta);
 
 % =========================================================================
 
