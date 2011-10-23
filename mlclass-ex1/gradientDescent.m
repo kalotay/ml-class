@@ -16,7 +16,7 @@ for iter = 1:num_iters
     %       of the cost function (computeCost) and gradient here.
     %
 
-    theta = theta - alpha * mean(bsxfun(@times, X * theta - y, X))';
+    theta = theta - alpha * X' * (X * theta - y) / length(y);
 
     % ============================================================
 
