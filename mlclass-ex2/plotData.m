@@ -16,8 +16,6 @@ accepted = find(y);
 rejected = find(y == 0);
 plot(X(accepted, 1), X(accepted, 2), 'b+', 'MarkerSize', 10);
 plot(X(rejected, 1), X(rejected, 2), 'ko', 'MarkerSize', 10);
-xlabel('Exam 1 score');
-ylabel('Exam 2 score');
 
 
 
