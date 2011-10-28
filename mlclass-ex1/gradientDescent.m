@@ -5,7 +5,11 @@ function [theta, J_history] = gradientDescent(X, y, theta, alpha, num_iters)
 
 % Initialize some useful values
 J_history = zeros(num_iters, 1);
+% (alpha * X' / length(y)) * (X * theta - y) is subtracted at every iteration
+% taking the invariants out of the loop makes the function slightly faster
 invariant = alpha * X' / length(y);
+multiInvariant = invariant * X;
+minusInvariant = invariant * y;
 
 for iter = 1:num_iters
 
@@ -17,7 +21,7 @@ for iter = 1:num_iters
     %       of the cost function (computeCost) and gradient here.
     %
 
-    theta = theta - invariant * (X * theta - y);
+    theta = theta - multiInvariant * theta + minusInvariant;
 
     % ============================================================
 
