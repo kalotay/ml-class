@@ -3,6 +3,6 @@ function J = computeCostMulti(X, y, theta)
 %   J = COMPUTECOSTMULTI(X, y, theta) computes the cost of using theta as the
 %   parameter for linear regression to fit the data points in X and y
 
-J = computeCost(X, y, theta);
+J = mean((X * theta - y) .^ 2) / 2;
 
 end
