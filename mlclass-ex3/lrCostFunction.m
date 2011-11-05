@@ -7,44 +7,15 @@ function [J, grad] = lrCostFunction(theta, X, y, lambda)
 
 % Initialize some useful values
 m = length(y); % number of training examples
-
-% You need to return the following variables correctly 
-grad = zeros(size(theta));
-
-% ====================== YOUR CODE HERE ======================
-% Instructions: Compute the cost of a particular choice of theta.
-%               You should set J to the cost.
-%               Compute the partial derivatives and set grad to the partial
-%               derivatives of the cost w.r.t. each parameter in theta
-%
-% Hint: The computation of the cost function and gradients can be
-%       efficiently vectorized. For example, consider the computation
-%
-%           sigmoid(X * theta)
-%
-%       Each row of the resulting matrix will contain the value of the
-%       prediction for that example. You can make use of this to vectorize
-%       the cost function and gradient computations. 
-%
-% Hint: When computing the gradient of the regularized cost function, 
-%       there're many possible vectorized solutions, but one solution
-%       looks like:
-%           grad = (unregularized gradient for logistic regression)
-%           temp = theta; 
-%           temp(1) = 0;   % because we don't add anything for j = 0  
-%           grad = grad + YOUR_CODE_HERE (using the temp variable)
-%
-
 h_theta = sigmoid(X * theta);
-theta_var = theta(2:end);
-J = (-y' * log(h_theta) - (1.0 - y)' * log(1.0 - h_theta) + ...
-    lambda * theta_var' * theta_var / 2) / m;
-reg = lambda * theta / m;
+reg = theta;
 reg(1) = 0;
-grad = (X' * (h_theta - y)) / m + reg;
 
-% =============================================================
+J = (-y' * log(h_theta) - (1.0 - y)' * log(1.0 - h_theta) + ...
+    lambda * reg' * reg / 2) / m;
+grad = (X' * (h_theta - y) + lambda * reg) / m;
 
+% makes sure grad is a column vector
 grad = grad(:);
 
 end
