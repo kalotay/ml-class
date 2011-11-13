@@ -70,12 +70,12 @@ z3 = a2 * Theta2';
 a3 = sigmoid(z3);
 sum2 = @(x)(sum(sum(x)));
 J = (sum2(-Y .* log(a3) - (1.0 - Y) .* log(1.0 - a3)) + ...
-lambda * (sum2(Theta1(:, 2:end) .^ 2) + sum2(Theta2(:, 2:end) .^ 2)) / 2 ) / m; 
+lambda * (sum2(Theta1(:, 2:end) .^ 2) + sum2(Theta2(:, 2:end) .^ 2)) / 2 ) / m;
 
-
-
-
-
+delta3 = a3 - Y;
+delta2 = delta3 * Theta2(:, 2:end) .* sigmoidGradient(z2);
+Theta1_grad = delta2' * a1 / m;
+Theta2_grad = delta3' * a2 / m;
 
 
 
