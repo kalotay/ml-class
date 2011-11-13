@@ -68,8 +68,8 @@ z2 = a1 * Theta1';
 a2 = [ones(m, 1), sigmoid(z2)];
 z3 = a2 * Theta2';
 a3 = sigmoid(z3);
-size(a3)
-J = sum(sum((-Y .* log(a3) - (1.0 - Y) .* log(1.0 - a3)))) / m; 
+J = (sum(sum(-Y .* log(a3) - (1.0 - Y) .* log(1.0 - a3))) + ...
+lambda * (sum(sum(Theta1 .^ 2)) + sum(sum(Theta2 .^ 2))) / 2 ) / m; 
 
 
 
