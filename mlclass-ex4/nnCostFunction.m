@@ -74,9 +74,12 @@ lambda * (sum2(Theta1(:, 2:end) .^ 2) + sum2(Theta2(:, 2:end) .^ 2)) / 2 ) / m;
 
 delta3 = a3 - Y;
 delta2 = delta3 * Theta2(:, 2:end) .* sigmoidGradient(z2);
-Theta1_grad = delta2' * a1 / m;
-Theta2_grad = delta3' * a2 / m;
-
+reg1 = Theta1;
+reg1(:, 1) = 0;
+reg2 = Theta2;
+reg2(:, 1) = 0;
+Theta1_grad = (delta2' * a1 + lambda * reg1) / m;
+Theta2_grad = (delta3' * a2 + lambda * reg2) / m;
 
 
 
