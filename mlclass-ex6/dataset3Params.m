@@ -23,10 +23,15 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+% Can you tell I don't like to use intermediate variables
 
+Model = fminunc(@(Parameters) mean(double(svmPredict(...
+    svmTrain(X, y, Parameters(1), ...
+    @(x1, x2) gaussianKernel(x1, x2, Parameters(2))), Xval) ~= yval)), ...
+    [C sigma])
 
-
-
+C = Model(1);
+sigma = Model(2);
 
 
 % =========================================================================
