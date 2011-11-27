@@ -25,13 +25,22 @@ sigma = 0.3;
 
 % Can you tell I don't like to use intermediate variables
 
-Model = fminunc(@(Parameters) mean(double(svmPredict(...
-    svmTrain(X, y, Parameters(1), ...
-    @(x1, x2) gaussianKernel(x1, x2, Parameters(2))), Xval) ~= yval)), ...
-    [C sigma])
+ExponentRange = -2:0.5:1.5;
+HypothesisC = realpow(10, ExponentRange);
+HypothesisSigma = realpow(10, ExponentRange);
+PredictionError = Inf;
 
-C = Model(1);
-sigma = Model(2);
+for TestC = HypothesisC
+    for TestSigma = HypothesisSigma
+        TestError = mean(double(svmPredict(...
+            svmTrain(X, y, TestC, ...
+            @(x1, x2) gaussianKernel(x1, x2, TestSigma)), Xval) ~= yval));
+        if TestError < PredictionError
+            C = TestC;
+            sigma = TestSigma;
+        end
+    end
+end
 
 
 % =========================================================================
