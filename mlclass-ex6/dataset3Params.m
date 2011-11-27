@@ -36,6 +36,7 @@ for TestC = HypothesisC
             svmTrain(X, y, TestC, ...
             @(x1, x2) gaussianKernel(x1, x2, TestSigma)), Xval) ~= yval));
         if TestError < PredictionError
+            PredictionError = TestError;
             C = TestC;
             sigma = TestSigma;
         end
@@ -43,6 +44,8 @@ for TestC = HypothesisC
 end
 
 
+C
+sigma
 % =========================================================================
 
 end
