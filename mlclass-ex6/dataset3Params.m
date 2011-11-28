@@ -8,8 +8,9 @@ function [C, sigma] = dataset3Params(X, y, Xval, yval)
 %
 
 % You need to return the following variables correctly.
-C = 1;
-sigma = 0.3;
+persistent C;
+persistent sigma;
+persistent ran;
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Fill in this function to return the optimal C and sigma
@@ -25,27 +26,30 @@ sigma = 0.3;
 
 % Can you tell I don't like to use intermediate variables
 
-ExponentRange = -2:0.5:1.5;
-HypothesisC = realpow(10, ExponentRange);
-HypothesisSigma = realpow(10, ExponentRange);
-PredictionError = Inf;
+if (isempty(ran))
+    ran = true;
+    C = 1;
+    sigma = 0.3;
+    ExponentRange = -2:0.5:1.5;
+    HypothesisC = realpow(10, ExponentRange);
+    HypothesisSigma = realpow(10, ExponentRange);
+    PredictionError = Inf;
 
-for TestC = HypothesisC
-    for TestSigma = HypothesisSigma
-        TestError = mean(double(svmPredict(...
-            svmTrain(X, y, TestC, ...
-            @(x1, x2) gaussianKernel(x1, x2, TestSigma)), Xval) ~= yval));
-        if TestError < PredictionError
-            PredictionError = TestError;
-            C = TestC;
-            sigma = TestSigma;
+    for TestC = HypothesisC
+        for TestSigma = HypothesisSigma
+            TestError = mean(double(svmPredict(...
+                svmTrain(X, y, TestC, ...
+                @(x1, x2) gaussianKernel(x1, x2, TestSigma)), Xval) ~= yval));
+            if TestError < PredictionError
+                PredictionError = TestError;
+                C = TestC;
+                sigma = TestSigma;
+            end
         end
     end
 end
 
 
-C
-sigma
 % =========================================================================
 
 end
