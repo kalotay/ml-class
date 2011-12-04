@@ -8,9 +8,6 @@ function idx = findClosestCentroids(X, centroids)
 % Set K
 K = size(centroids, 1);
 
-% You need to return the following variables correctly.
-idx = zeros(size(X,1), 1);
-
 % ====================== YOUR CODE HERE ======================
 % Instructions: Go over every example, find its closest centroid, and store
 %               the index inside idx at the appropriate location.
@@ -20,10 +17,14 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
-
-
-
-
+% Metric contains square distance to centroids
+Metric = zeros(K, size(X, 1));
+for index = 1:K
+    Metric(index, :) = sum(bsxfun(@minus, X, centroids(index, :))' .^ 2);
+end
+[~, idx] = min(Metric);
+% transpose from row to column vector
+idx = idx';
 
 
 
