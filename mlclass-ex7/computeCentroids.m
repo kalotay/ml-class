@@ -24,7 +24,7 @@ centroids = zeros(K, size(X, 2));
 % Note: You can use a for-loop over the centroids to compute this.
 %
 for index = 1:K
-    centroids(index, :) = mean(X(idx == index));
+    centroids(index, :) = mean(X(idx == index, :));
 end
 
 
